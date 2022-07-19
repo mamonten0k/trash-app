@@ -10,7 +10,7 @@ const baseConfig = {
     mode: 'development',
     output: {
         filename: 'index.js',
-        path: path.resolve(__dirname, '../dist'),
+        path: path.resolve(__dirname, './dist'),
     },
     module: {
         rules: [
@@ -54,7 +54,10 @@ const baseConfig = {
                         declarationMap: false,
                         noEmit: true,
                         incremental: true,
-                        tsBuildInfoFile: path.resolve(__dirname, './node_modules/.cache/tsconfig.tsbuildinfo'),
+                        tsBuildInfoFile: path.resolve(
+                            __dirname,
+                            './node_modules/.cache/tsconfig.tsbuildinfo'
+                        ),
                     },
                 },
                 context: path.resolve(__dirname, '.'),
@@ -64,7 +67,10 @@ const baseConfig = {
                 mode: 'write-references',
             },
             issue: {
-                include: [{ file: '../**/src/**/*.{ts}' }, { file: '**/src/**/*.{ts}' }],
+                include: [
+                    { file: '../**/src/**/*.{ts}' },
+                    { file: '**/src/**/*.{ts}' },
+                ],
             },
         }),
     ],
@@ -72,7 +78,9 @@ const baseConfig = {
 
 module.exports = ({ mode }) => {
     const isProductionMode = mode === 'prod';
-    const envConfig = isProductionMode ? require('./webpack.prod.config') : require('./webpack.dev.config');
+    const envConfig = isProductionMode
+        ? require('./webpack.prod.config')
+        : require('./webpack.dev.config');
 
     return merge(baseConfig, envConfig);
 };
