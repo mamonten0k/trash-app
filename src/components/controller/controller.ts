@@ -41,7 +41,17 @@ class AppController extends AppLoader implements IAppController{
         }
     }
 
-
+    drawOnPageLoad(sourceId: string, callback: (data: IData) => void):void {
+        super.getResp(
+            {
+                endpoint: 'everything',
+                options: {
+                    sources: sourceId,
+                },
+            },
+            callback
+        );
+    }
 }
 
 export default AppController;
